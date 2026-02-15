@@ -1,0 +1,129 @@
+name: PR Auto Grader
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  grade:
+    name: PR Auto Grader
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # 1️⃣ Checkout PR code
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # required for diff validation
+
+      # 2️⃣ Clone Private Grader Repository
+      - name: Clone Private Grader
+        run: |
+          git clone https://x-access-token:${{ secrets.GRADER_REPO_TOKEN }}@github.com/Once-1296/CoC-workshop-test-runner.git
+
+      # 3️⃣ Fetch main branch for diff comparison
+      - name: Fetch Main Branch
+        run: |
+          git fetch origin main
+
+      # 4️⃣ Validate Repository Structure
+      - name: Validate Structure
+        run: |
+          python3 grader_repo/grader/validate_structure.py
+
+      # 5️⃣ Validate Only Allowed Files Modified
+      - name: Validate Diff
+        run: |
+          python3 grader_repo/grader/validate_diff.py
+
+      # 6️⃣ Assemble Workspace for Docker
+      - name: Assemble Workspace
+        run: |
+          mkdir workspace
+          cp -r grader_repo/grader workspace/
+          cp -r grader_repo/hidden_tests workspace/
+          cp -r . workspace/student_repo
+
+      # 7️⃣ Build Docker Sandbox
+      - name: Build Docker Image
+        run: |
+          docker build -t pr-grader workspace/grader/docker
+
+      # 8️⃣ Run Tests in Docker (Sandboxed)
+      - name: Run Hidden Tests
+        run: |
+          docker run --rm \
+            --memory="256m" \
+            --cpus="1.0" \
+            -v ${{ github.workspace }}/workspace:/workspace \
+            pr-grader
+
+      # 9️⃣ Read Results
+      - name: Read Results JSON
+        id: results
+        run: |
+          echo "RESULT=$(cat workspace/results.json | jq -c .)" >> $GITHUB_OUTPUT
+
+      # 🔟 Send Results to Supabase
+      - name: Send Results to Supabase (UPSERT)
+        run: |
+          python3 - <<EOF
+          import os, json, requests
+
+          result = json.loads('''${{ steps.results.outputs.RESULT }}''')
+
+          payload = {
+              "github_id": "${{ github.actor }}",
+              "pr_number": int("${{ github.event.pull_request.number }}"),
+              "passed": result["passed"],
+              "total": result["total"],
+              "details": result["details"]
+          }
+
+          headers = {
+              "apikey": os.environ["SUPABASE_SERVICE_ROLE"],
+              "Authorization": f"Bearer {os.environ['SUPABASE_SERVICE_ROLE']}",
+              "Content-Type": "application/json",
+              "Prefer": "resolution=merge-duplicates"
+          }
+
+          response = requests.post(
+              os.environ["SUPABASE_URL"] + "?on_conflict=github_id,pr_number",
+              json=payload,
+              headers=headers
+          )
+
+          if response.status_code not in [200, 201]:
+              print("Supabase Error:", response.text)
+              raise Exception("Failed to upsert score")
+
+          print("✅ Score upserted successfully.")
+          EOF
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE }}
+
+      # 1️⃣1️⃣ Fail if Tests Failed
+      - name: Fail If Tests Failed
+        run: |
+          PASSED=$(jq '.passed' workspace/results.json)
+          TOTAL=$(jq '.total' workspace/results.json)
+
+          if [ "$PASSED" -ne "$TOTAL" ]; then
+            echo "❌ Some tests failed."
+            exit 1
+          fi
+
+      # 1️⃣2️⃣ Enable Auto Merge if Successful
+      - name: Enable Auto Merge
+        if: success()
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: merge
