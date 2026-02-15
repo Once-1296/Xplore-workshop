@@ -135,5 +135,5 @@ jobs:
         if: success()
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GRADER_REPO_TOKEN }}
           merge-method: merge
