@@ -31,14 +31,7 @@ jobs:
             exit 1
           fi
           ls -R grader_repo
-      - name: Debug Repo Structure
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Listing root:"
-          ls -R
-          echo "Listing grader_repo:"
-          ls -R grader_repo || echo "grader_repo not found"
+      
 
       # 3️⃣ Fetch main branch for diff comparison
       - name: Fetch Main Branch
@@ -59,6 +52,15 @@ jobs:
       - name: Validate Diff
         run: |
           python3 grader_repo/grader/validate_diff.py
+          
+      - name: Debug Repo Structure
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Listing root:"
+          ls -R
+          echo "Listing grader_repo:"
+          ls -R grader_repo || echo "grader_repo not found"
 
       # 7️⃣ Build Docker Sandbox
       - name: Build Docker Image
