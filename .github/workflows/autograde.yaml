@@ -98,10 +98,8 @@ jobs:
           )
 
           highest_previous = 0
-          if response:
-              print(response)
           if response.status_code == 200 and response.json():
-              highest_previous = response.json()[0].get("percentage", 0)
+              highest_previous = response.json()[0].get("score_percentage", 0)
 
           print("Highest Previous:", highest_previous)
           print("Current:", current_percentage)
