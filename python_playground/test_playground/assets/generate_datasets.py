@@ -10,19 +10,24 @@ ROOT = Path(__file__).resolve().parent
 
 
 def generate_students(path: Path):
-    # student table for pandas basics
+    # student table for pandas basics (includes stable student_id key)
     rows = [
-        ("Alicia", 21, "A", 88.5, "CS"),
-        ("Ben", 19, "B", 72.0, "EE"),
-        ("Carmen", 22, "A", 91.2, "CS"),
-        ("Dev", 20, "C", 60.5, "ME"),
-        ("Eli", 23, "B", 75.3, "EC"),
-        ("Farah", 21, "A", 84.7, "EE"),
-        ("Gio", 20, "B", 78.8, "CS"),
+        ("S001", "Alicia", 21, "A", 88.5, 94.0, "CSE"),
+        ("S002", "Ben", 19, "B", 72.0, 81.0, "ECE"),
+        ("S003", "Carmen", 22, "A", 91.2, 96.0, "CSE"),
+        ("S004", "Dev", 20, "C", 60.5, 70.0, "ME"),
+        ("S005", "Eli", 23, "B", 75.3, 84.0, "ECE"),
+        ("S006", "Farah", 21, "A", 84.7, 90.0, "ECE"),
+        ("S007", "Gio", 20, "B", 78.8, 86.0, "CSE"),
+        ("S008", "Hana", 22, "A", 89.1, 93.0, "ME"),
+        ("S009", "Ishan", 19, "C", 66.4, 74.0, "CSE"),
+        ("S010", "Jia", 21, "B", 79.6, 88.0, "ECE"),
+        ("S011", "Karan", 20, "B", 73.9, 77.0, "ME"),
+        ("S012", "Lina", 22, "A", 92.4, 98.0, "CSE"),
     ]
     with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow(["name", "age", "grade", "score", "department"])
+        writer.writerow(["student_id", "name", "age", "grade", "score", "attendance", "department"])
         writer.writerows(rows)
 
 
