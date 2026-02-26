@@ -36,7 +36,7 @@ Copy the entire `test_playground` directory into your solutions folder:
 
 ### 5️⃣ Set Up Virtual Environment
 
-Create a virtual environment using Python 3.12.0 (important to avoid conflicts):
+Create a virtual environment using Python 3.12.0 or 3.14.2 (important to avoid conflicts):
 ```
 python3.12 -m venv venv
 source venv/bin/activate  # Linux/Mac
@@ -45,6 +45,8 @@ venv\Scripts\activate     # Windows
 Install dependencies:
 ```
 pip install -r requirements.txt
+# or pip install -r requirements-3.14.2.txt in case of 3.14.2
+# 3.14.x should also work, but do contact on group if conflicts faced
 ```
 
 ### 6️⃣ Implement Your Fixes & Enhancements

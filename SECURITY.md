@@ -3,7 +3,7 @@
 ## Supported Versions
 
 python: 3.12.0 version
-
+python: 3.14.2
 
 ## Reporting a Vulnerability
 
