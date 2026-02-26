@@ -1,17 +1,71 @@
-CoC Python Workshop
+📘 README.md
 
-This repository contains a set of Python tutorials and exercises for students to
-practice after studying Python fundamentals. Within main directory we have `python_playground` folder which has `tutorials` for some basic py files for you to get used to the syntax and crux of python, while `test_playground` has various folders like
-`basics/`, `intermediate/`, `advanced/`, `miscellaneous/` where you can make changes to the files which are mostly correct but small bugs are there. Hints are there for your help. You may also refer `tutorial_day_2_python.ipynb` given in main directory for the walkthrough of major concepts in brief.
+# CoC Python Workshop
 
-How students should submit solutions
+Welcome to the CoC Python Workshop repository! 🚀
 
-1. Fork this repository to your GitHub account.
-2. Clone your fork locally.
-3. In the fork, create a top-level folder named `<githubid>_solutions` (replace `<githubid>` with your GitHub username).
-4. Copy both `python_playground\test_playground` and `python_playground/tutorials` to `<githubid>_solutions/` folder. 
-5. In the top level directory, make a venv and run `pip install -r requirements.txt` to get the necessary dependencies installed 
-6. Implement your fixes and solutions inside your copied folder only. Add your own python files to perhaps showcase something that you have learned
-7. Commit your changes, push the branch, and open a PR against the upstream repository. Format of PR is provided to you in repo as well.
 
-Have fun learning!
+This repository is designed to help students practice Python after learning the fundamentals, through tutorials, hands-on exercises, and debugging challenges.
+
+## 📂 Repository Structure
+
+### 🔹 tutorials/ — Learn & Explore
+
+This is your primary learning directory. Use it to understand Python concepts and explore its power.
+
+It is organized into:
+
+- fundamentals/
+Learn Python basics such as variables, loops, functions, and data types.
+
+- additional_libs/
+Get introduced to commonly used standard and third-party Python libraries.
+
+- data_science/
+Dive into BIG DATA & Data Science concepts, including data handling and analysis.
+
+- miscellaneous/
+Experiment with powerful and fun Python libraries beyond the basics.
+
+### 🔹 test_playground/ — Practice by Fixing Bugs 🧠
+
+This directory helps you learn by doing.
+
+It contains folders such as:
+
+- basics/
+
+- intermediate/
+
+- advanced/
+
+- miscellaneous/
+
+📌 These files are mostly correct, but include small bugs or logical errors.
+💡 Hints are provided to guide you—try fixing the issues on your own!
+
+## 📓 Google Colab Walkthrough
+
+A Google Colab Notebook is provided in the main directory for a quick walkthrough of major Python concepts:
+
+👉 [Open Colab Notebook](https://colab.research.google.com/drive/1OvQEWr6Wx9XnjLGwWLgw45yIWzP1RoGv)
+
+Use this as:
+
+1. A quick revision guide
+
+2. A reference while solving exercises
+
+## 🎯 Goal of This Repository
+
+1. Strengthen Python fundamentals
+
+2. Learn debugging and problem-solving
+
+3. Explore real-world Python libraries
+
+4. Build confidence through practice
+
+5. Learn format of contribution in open source and work with PRs and issues.
+
+**✨ Have fun learning Python!**

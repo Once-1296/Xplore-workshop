@@ -3,3 +3,7 @@
 *__pycache__/
 *.pyc
 *master solutions/
+*.pytest_cache/
+*.ipynb_checkpoints/
+*.vscode/
+*.idea/
