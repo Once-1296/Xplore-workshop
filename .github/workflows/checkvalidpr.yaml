@@ -61,3 +61,6 @@ jobs:
       # 5️⃣ Validate Only Allowed Files Modified
       - name: Validate Diff
         run: python3 grader_repo/grader/validate_diff.py
+        env:
+             GITHUB_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+             GITHUB_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
