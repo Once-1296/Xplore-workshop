@@ -1,5 +1,7 @@
 📘 README.md
 
+
+ SIX SEVENNNNN
 # CoC Python Workshop
 
 Welcome to the CoC Python Workshop repository! 🚀
