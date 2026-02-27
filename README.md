@@ -1,7 +1,7 @@
-📘 README.md 1
+📘 README.md
 
 # CoC Python Workshop
-
+1
 Welcome to the CoC Python Workshop repository! 🚀
 
 
