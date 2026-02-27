@@ -47,6 +47,7 @@ jobs:
           mkdir workspace/student_repo
           cp -r grader_repo/grader workspace/
           cp -r grader_repo/hidden_tests workspace/
+          ls
           cp -r "${{ github.event.pull_request.user.login }}_solutions/." workspace/student_repo/
 
       # 4️⃣ Validate Repository Structure
