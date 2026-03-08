@@ -10,7 +10,7 @@ def list_files(dir_path: str) -> List[str]:
     p = Path(dir_path)
     if not p.exists():
         return []
-    return sorted([x.name for x in p.iterdir()])  # hint: this returns directories, not files
+    return sorted([x.name for x in p.iterdir() if not x.is_dir()])  # hint: this returns directories, not files
 
 
 # create nested directory path
